@@ -1,6 +1,10 @@
+import { Container } from "react-bootstrap";
+
 const Home = () => {
     return (
-        <div>This is the Home Page</div>
+        <Container style={{ marginTop: ".5rem", backgroundColor: "white" }}>
+            <div>This is the Home Page</div>
+        </Container>
     )
 };
 
