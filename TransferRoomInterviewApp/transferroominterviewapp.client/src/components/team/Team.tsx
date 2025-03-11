@@ -1,25 +1,27 @@
 import { Container } from "react-bootstrap";
 import TeamHeader from "./header/TeamHeader";
-import PlayersList from "./players-list/PlayersList";
-import useTeams from "../../hooks/useTeams";
 import { useParams } from "react-router";
 
 import "./Team.css";
+import { useFetch } from "../../hooks/useFetch";
+import PlayersList from "./players-list/PlayersList";
 
 const Team = () => {
     const params = useParams();
-    const { getTeamById } = useTeams();
-
-    const teamData = getTeamById(parseInt(params.id ?? "0"));
+    const { data, isPending, error } = useFetch(`https://localhost:5173/api/teams/${parseInt(params.id ?? "0")}`);
 
     return (
         <Container>
-            { teamData ? (
-                <>
-                    <TeamHeader team={teamData}/>
-                    <PlayersList players={teamData.players} />
-                </>
-            ) : <div>No data found</div>}
+            { isPending && <div>Loading...</div>}
+            <>
+                { error && <div>{error}</div>}
+                { data && (
+                    <>
+                        <TeamHeader team={data}/>
+                        <PlayersList teamId={params.id ?? "0"}/>
+                    </>
+                )}
+            </>
         </Container>
     )
 };

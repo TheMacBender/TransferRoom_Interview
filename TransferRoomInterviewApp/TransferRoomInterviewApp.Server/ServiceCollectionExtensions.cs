@@ -11,7 +11,9 @@ namespace TransferRoomInterviewApp.Server
         {
             services
                 .AddScoped<ITeamsRepository, TeamsRepository>()
-                .AddScoped<ITeamsService, TeamsService>();
+                .AddScoped<IPlayersRepository, PlayersRepository>()
+                .AddScoped<ITeamsService, TeamsService>()
+                .AddScoped<IPlayersService, PlayersService>();
 
             return services;
         }

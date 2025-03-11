@@ -8,6 +8,6 @@
 
         public string Nickname { get; set; }
 
-        public IEnumerable<Player> Players { get; set; }
+        public string BadgeUrl { get; set; }
     }
 }
