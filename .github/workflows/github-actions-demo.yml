@@ -1,18 +1,47 @@
 name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+run-name: ${{ github.actor }} is testing out GitHub Actions
 on: [push]
 jobs:
-  Explore-GitHub-Actions:
+  build-and-test:
     runs-on: ubuntu-latest
+
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Check out repository code
         uses: actions/checkout@v4
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+            dotnet-version: '8.x'
+      - name: Restore backend dependencies
+        run: dotnet restore ./TransferRoomInterviewApp/TransferRoomInterviewApp.Server
+      - name: Build backend
+        run: dotnet build --configuration Release ./TransferRoomInterviewApp/TransferRoomInterviewApp.Server
+      - name: Run backend tests
+        run: echo "Testing backend here"
+
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+            node-version: '20'
+      - name: Install frontend dependencies
+        run: npm install --prefix ./TransferRoomInterviewApp/transferroominterviewapp.client
+      - name: Build frontend
+        run: npm run build --prefix
+      - name: Run frontend tests
+        run: echo "Testing frontend here"
+
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Deploy backend
+      run: echo "Deploy backend here"
+    - name: Deploy frontend
+      run: echo "Deploy frontend here"
