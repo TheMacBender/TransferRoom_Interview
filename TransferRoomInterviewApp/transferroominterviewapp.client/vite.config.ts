@@ -4,7 +4,7 @@ import { defineConfig } from 'vite';
 import plugin from '@vitejs/plugin-react';
 import fs from 'fs';
 import path from 'path';
-import child_process from 'child_process';
+// import child_process from 'child_process';
 
 const baseFolder =
     process.env.APPDATA !== undefined && process.env.APPDATA !== ''
@@ -24,27 +24,23 @@ if (!certificateName) {
 const certFilePath = path.join(baseFolder, `${certificateName}.pem`);
 const keyFilePath = path.join(baseFolder, `${certificateName}.key`);
 
-console.log('APPDATA:', process.env.APPDATA);
-console.log('HOME:', process.env.HOME);
-console.log(baseFolder);
-console.log(certFilePath);
-console.log(keyFilePath);
+// Setup those for local environment
 
-if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
-    const status = child_process.spawnSync('dotnet', [
-        'dev-certs',
-        'https',
-        '--export-path',
-        certFilePath,
-        '--format',
-        'Pem',
-        '--no-password',
-    ], { stdio: 'inherit', }).status;
-    console.log(status);
-    if (0 !== status) {
-        throw new Error("Could not create certificate.");
-    }
-}
+// if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
+//     const status = child_process.spawnSync('dotnet', [
+//         'dev-certs',
+//         'https',
+//         '--export-path',
+//         certFilePath,
+//         '--format',
+//         'Pem',
+//         '--no-password',
+//     ], { stdio: 'inherit', }).status;
+//     console.log(status);
+//     if (0 !== status) {
+//         throw new Error("Could not create certificate.");
+//     }
+// }
 
 // https://vitejs.dev/config/
 export default defineConfig({
