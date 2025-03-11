@@ -40,6 +40,8 @@ jobs:
         run: sudo mkdir -p /github/home/.aspnet/https
       - name: dotnet dev-cert
         run: sudo dotnet dev-certs https --export-path /github/home/.aspnet/https/transferroominterviewapp.client.pem --format Pem --no-password
+      - name: set up permissions
+        run: sudo chmod -v -R 777 /github/home/.aspnet/https/
       - name: check for certificates
         run: sudo ls -l /github/home/.aspnet/https/
       - name: Build And Deploy
