@@ -13,14 +13,33 @@ namespace TransferRoomInterviewApp.Server.BusinessLogic.Services
             _teamsRepository = teamsRepository;
         }
 
-        public Task<IEnumerable<Team>> GetTeamsBySearchInputAsync(string searchInput)
+        public async Task<IEnumerable<Team>> GetTeamsBySearchInputAsync(string searchInput)
         {
-            return _teamsRepository.GetTeamsBySearchInputAsync(searchInput);
+            if (searchInput == "")
+            {
+                return Enumerable.Empty<Team>();
+            }
+
+            return (await _teamsRepository.GetTeamsBySearchInputAsync(searchInput))
+                .Response
+                .Select(data => new Team
+                {
+                    Id = data.Team.Id,
+                    Name = data.Team.Name,
+                    BadgeUrl = "",
+                });
         }
 
-        public Task<Team?> GetTeamByTeamIdAsync(int teamId)
+        public async Task<Team?> GetTeamByTeamIdAsync(int teamId)
         {
-            return _teamsRepository.GetTeamByTeamIdAsync(teamId);
+            return (await _teamsRepository.GetTeamByIdAsync(teamId))
+                .Response
+                .Select(data => new Team
+                {
+                    Id = data.Team.Id,
+                    Name = data.Team.Name,
+                    BadgeUrl = data.Team.Logo
+                }).FirstOrDefault();
         }
     }
 }

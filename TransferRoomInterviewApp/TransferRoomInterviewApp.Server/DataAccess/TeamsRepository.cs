@@ -1,45 +1,46 @@
 ﻿using TransferRoomInterviewApp.Server.DataAccess.Interfaces;
-using TransferRoomInterviewApp.Server.Domain;
-using TransferRoomInterviewApp.Server.Infrastructure.Interfaces;
+using TransferRoomInterviewApp.Server.DataAccess.LocalStorage;
+using TransferRoomInterviewApp.Server.DataAccess.Models;
 
 namespace TransferRoomInterviewApp.Server.DataAccess
 {
-    public class TeamsRepository : ITeamsRepository
+    public class TeamsRepository : HttpClientBaseRepository, ITeamsRepository
     {
-        private readonly IExternalApiClient _externalApiClient;
-
-        public TeamsRepository(IExternalApiClient externalApiClient)
+        public TeamsRepository(IHttpClientFactory httpClientFactory) : base(httpClientFactory)
         {
-            _externalApiClient = externalApiClient;
         }
 
-        public async Task<IEnumerable<Team>> GetTeamsBySearchInputAsync(string searchInput)
+        public async Task<ExternalApiResponse<TeamsResponseObject>> GetTeamByIdAsync(int teamId)
         {
-            if (searchInput == "")
+            var teamData = await GetAsync<TeamsResponseObject>($"teams?id={teamId}");
+            return teamData;
+        }
+
+        public Task<ExternalApiResponse<TeamsResponseObject>> GetTeamsBySearchInputAsync(string searchInput)
+        {
+            var teamsBySearchInput = IntermediateTeamsCollection.GetTeamsBySearchInput(searchInput);
+
+            if (!teamsBySearchInput.Any())
             {
-                return Enumerable.Empty<Team>();
+                return Task.FromResult(new ExternalApiResponse<TeamsResponseObject>()
+                {
+                    Results = 0,
+                    Response = Enumerable.Empty<TeamsResponseObject>()
+                });
             }
 
-            return (await _externalApiClient.GetTeamsBySearchInputAsync(searchInput))
-                .Response
-                .Select(data => new Team
-                 {
-                     Id = data.Team.Id,
-                     Name = data.Team.Name,
-                     BadgeUrl = "",
-                 });
-        }
-
-        public async Task<Team?> GetTeamByTeamIdAsync(int teamId)
-        {
-            return (await _externalApiClient.GetTeamByIdAsync(teamId))
-                .Response
-                .Select(data => new Team
+            return Task.FromResult(new ExternalApiResponse<TeamsResponseObject>()
+            {
+                Results = teamsBySearchInput.Count(),
+                Response = teamsBySearchInput.Select(team => new TeamsResponseObject
                 {
-                    Id = data.Team.Id,
-                    Name = data.Team.Name,
-                    BadgeUrl = data.Team.Logo
-                }).FirstOrDefault();
+                    Team = new TeamObject
+                    {
+                        Id = team.Id,
+                        Name = team.Name,
+                    }
+                })
+            });
         }
     }
 }

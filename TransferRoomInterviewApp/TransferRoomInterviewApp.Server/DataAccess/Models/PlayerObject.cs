@@ -1,4 +1,4 @@
-﻿namespace TransferRoomInterviewApp.Server.Infrastructure.Models
+﻿namespace TransferRoomInterviewApp.Server.DataAccess.Models
 {
     public class PlayerObject
     {

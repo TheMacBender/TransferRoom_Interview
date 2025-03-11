@@ -1,9 +1,10 @@
-﻿using TransferRoomInterviewApp.Server.Domain;
+﻿using TransferRoomInterviewApp.Server.DataAccess.Models;
+using TransferRoomInterviewApp.Server.Domain;
 
 namespace TransferRoomInterviewApp.Server.DataAccess.Interfaces
 {
     public interface IPlayersRepository
     {
-        Task<IEnumerable<Player>> GetPlayersByTeamIdAsync(int teamId);
+        Task<ExternalApiResponse<PlayersResponseObject>> GetPlayersByTeamId(int teamId);
     }
 }

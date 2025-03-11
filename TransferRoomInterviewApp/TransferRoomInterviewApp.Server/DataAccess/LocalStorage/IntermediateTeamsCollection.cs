@@ -1,4 +1,4 @@
-﻿namespace TransferRoomInterviewApp.Server.Infrastructure.LocalStorage
+﻿namespace TransferRoomInterviewApp.Server.DataAccess.LocalStorage
 {
     public class IntermediateTeamData
     {
