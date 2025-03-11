@@ -4,12 +4,14 @@ import { defineConfig } from 'vite';
 import plugin from '@vitejs/plugin-react';
 import fs from 'fs';
 import path from 'path';
-// import child_process from 'child_process';
+import child_process from 'child_process';
 
 const baseFolder =
     process.env.APPDATA !== undefined && process.env.APPDATA !== ''
         ? `${process.env.APPDATA}/ASP.NET/https`
-        : `${process.env.HOME}/.aspnet/https`;
+        : `~/.aspnet/https`;
+
+fs.mkdirSync(baseFolder, { recursive: true });
 
 const certificateArg = process.argv.map(arg => arg.match(/--name=(?<value>.+)/i)).filter(Boolean)[0];
 const certificateName = certificateArg ? certificateArg.groups?.value : "transferroominterviewapp.client";
@@ -22,28 +24,19 @@ if (!certificateName) {
 const certFilePath = path.join(baseFolder, `${certificateName}.pem`);
 const keyFilePath = path.join(baseFolder, `${certificateName}.key`);
 
-console.log(certFilePath);
-console.log(keyFilePath);
-console.log("Cert file exists", fs.existsSync(certFilePath));
-console.log("Key file exists", fs.existsSync(keyFilePath));
-
-// Setup those for local environment
-
-// if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
-//     const status = child_process.spawnSync('dotnet', [
-//         'dev-certs',
-//         'https',
-//         '--export-path',
-//         certFilePath,
-//         '--format',
-//         'Pem',
-//         '--no-password',
-//     ], { stdio: 'inherit', }).status;
-//     console.log(status);
-//     if (0 !== status) {
-//         throw new Error("Could not create certificate.");
-//     }
-// }
+if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
+    if (0 !== child_process.spawnSync('dotnet', [
+        'dev-certs',
+        'https',
+        '--export-path',
+        certFilePath,
+        '--format',
+        'Pem',
+        '--no-password',
+    ], { stdio: 'inherit', }).status) {
+        throw new Error("Could not create certificate.");
+    }
+}
 
 // https://vitejs.dev/config/
 export default defineConfig({
