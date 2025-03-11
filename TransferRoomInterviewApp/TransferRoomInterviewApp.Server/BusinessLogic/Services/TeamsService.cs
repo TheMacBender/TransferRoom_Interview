@@ -13,14 +13,14 @@ namespace TransferRoomInterviewApp.Server.BusinessLogic.Services
             _teamsRepository = teamsRepository;
         }
 
-        public IEnumerable<Team> GetTeamsBySearchInput(string searchInput)
+        public Task<IEnumerable<Team>> GetTeamsBySearchInputAsync(string searchInput)
         {
-            return _teamsRepository.GetTeamsBySearchInput(searchInput);
+            return _teamsRepository.GetTeamsBySearchInputAsync(searchInput);
         }
 
-        public Team? GetTeamByTeamId(int teamId)
+        public Task<Team?> GetTeamByTeamIdAsync(int teamId)
         {
-            return _teamsRepository.GetTeamByTeamId(teamId);
+            return _teamsRepository.GetTeamByTeamIdAsync(teamId);
         }
     }
 }

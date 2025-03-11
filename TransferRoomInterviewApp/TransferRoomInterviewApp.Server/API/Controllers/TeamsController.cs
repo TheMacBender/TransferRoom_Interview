@@ -8,31 +8,29 @@ namespace TransferRoomInterviewApp.Server.API.Controllers
     [Route("api/[controller]")]
     public class TeamsController : ControllerBase
     {
-        private readonly ILogger<TeamsController> _logger;
         private readonly ITeamsService _teamsService;
         private readonly IPlayersService _playersService;
 
         public TeamsController(
-            ILogger<TeamsController> logger,
             ITeamsService teamsService,
             IPlayersService playersService)
         {
-            _logger = logger;
             _teamsService = teamsService;
             _playersService = playersService;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Team>> Get([FromQuery]string searchInput = "")
+        public async Task<ActionResult<IEnumerable<Team>>> Get([FromQuery]string searchInput = "")
         {
-            return Ok(_teamsService.GetTeamsBySearchInput(searchInput));
+            var result = await _teamsService.GetTeamsBySearchInputAsync(searchInput);
+            return Ok(result);
         }
 
         [HttpGet("{teamId}")]
-        public ActionResult<Team> GetByTeamId([FromRoute]int teamId)
+        public async Task<ActionResult<Team>> GetByTeamId([FromRoute]int teamId)
         {
             // temporarily
-            var team = _teamsService.GetTeamByTeamId(teamId);
+            var team = await _teamsService.GetTeamByTeamIdAsync(teamId);
             if (team == null)
             {
                 return NotFound();
@@ -42,9 +40,10 @@ namespace TransferRoomInterviewApp.Server.API.Controllers
         }
 
         [HttpGet("{teamId}/players")]
-        public ActionResult<IEnumerable<Player>> GetPlayersByTeamId([FromRoute]int teamId)
+        public async Task<ActionResult<IEnumerable<Player>>> GetPlayersByTeamId([FromRoute]int teamId)
         {
-            return Ok(_playersService.GetPlayersByTeamId(teamId));
+            var result = await _playersService.GetPlayersByTeamIdAsync(teamId);
+            return Ok(result);
         }
     }
 }

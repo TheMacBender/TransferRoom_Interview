@@ -4,8 +4,8 @@ namespace TransferRoomInterviewApp.Server.BusinessLogic.Services.Interfaces
 {
     public interface ITeamsService
     {
-        IEnumerable<Team> GetTeamsBySearchInput(string searchInput);
+        Task<IEnumerable<Team>> GetTeamsBySearchInputAsync(string searchInput);
 
-        Team GetTeamByTeamId(int teamId);
+        Task<Team?> GetTeamByTeamIdAsync(int teamId);
     }
 }

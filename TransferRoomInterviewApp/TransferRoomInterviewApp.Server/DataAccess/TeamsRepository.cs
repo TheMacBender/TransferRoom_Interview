@@ -1,47 +1,45 @@
 ﻿using TransferRoomInterviewApp.Server.DataAccess.Interfaces;
 using TransferRoomInterviewApp.Server.Domain;
+using TransferRoomInterviewApp.Server.Infrastructure.Interfaces;
 
 namespace TransferRoomInterviewApp.Server.DataAccess
 {
     public class TeamsRepository : ITeamsRepository
     {
-        private IReadOnlyList<Team> _teams;
+        private readonly IExternalApiClient _externalApiClient;
 
-        public TeamsRepository()
+        public TeamsRepository(IExternalApiClient externalApiClient)
         {
-            _teams = new List<Team>()
-            {
-                new Team()
-                {
-                    Id = 1,
-                    Name = "Liverpool",
-                    Nickname = "The Reds",
-                    BadgeUrl = ""
-                },
-                new Team()
-                {
-                    Id = 2,
-                    Name = "Leicester",
-                    Nickname = "The Foxes",
-                    BadgeUrl = ""
-                }
-            };
+            _externalApiClient = externalApiClient;
         }
 
-        public IEnumerable<Team> GetTeamsBySearchInput(string searchInput)
+        public async Task<IEnumerable<Team>> GetTeamsBySearchInputAsync(string searchInput)
         {
             if (searchInput == "")
             {
                 return Enumerable.Empty<Team>();
             }
 
-            return _teams
-                .Where(t => t.Name.Contains(searchInput) || t.Nickname.Contains(searchInput));
+            return (await _externalApiClient.GetTeamsBySearchInputAsync(searchInput))
+                .Response
+                .Select(data => new Team
+                 {
+                     Id = data.Team.Id,
+                     Name = data.Team.Name,
+                     BadgeUrl = "",
+                 });
         }
 
-        public Team? GetTeamByTeamId(int teamId)
+        public async Task<Team?> GetTeamByTeamIdAsync(int teamId)
         {
-            return _teams.FirstOrDefault(t => t.Id == teamId);
+            return (await _externalApiClient.GetTeamByIdAsync(teamId))
+                .Response
+                .Select(data => new Team
+                {
+                    Id = data.Team.Id,
+                    Name = data.Team.Name,
+                    BadgeUrl = data.Team.Logo
+                }).FirstOrDefault();
         }
     }
 }

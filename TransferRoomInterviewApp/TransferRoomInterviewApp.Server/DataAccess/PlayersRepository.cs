@@ -1,38 +1,32 @@
 ﻿using TransferRoomInterviewApp.Server.DataAccess.Interfaces;
 using TransferRoomInterviewApp.Server.Domain;
+using TransferRoomInterviewApp.Server.Infrastructure.Interfaces;
 
 namespace TransferRoomInterviewApp.Server.DataAccess
 {
     public class PlayersRepository : IPlayersRepository
     {
-        private IReadOnlyList<Player> _players = new List<Player>()
-        {
-            new Player()
-            {
-                Id = 1,
-                TeamId = 1,
-                FirstName = "Mohamed",
-                LastName = "Salah",
-                PlayerPosition = "FW",
-                BirthDate = DateTime.Now,
-                ProfilePictureUrl = ""
-            },
-            new Player()
-            {
-                Id = 2,
-                TeamId = 2,
-                FirstName = "Jamie",
-                LastName = "Vardy",
-                PlayerPosition = "FW",
-                BirthDate = DateTime.Now,
-                ProfilePictureUrl = ""
-            }
-        };
+        private readonly IExternalApiClient _externalApiClient;
 
-        public IEnumerable<Player> GetPlayersByTeamId(int teamId)
+        public PlayersRepository(IExternalApiClient externalApiClient)
         {
-            return _players
-                .Where(p => p.TeamId == teamId);
+            _externalApiClient = externalApiClient;
+        }
+
+        public async Task<IEnumerable<Player>> GetPlayersByTeamIdAsync(int teamId)
+        {
+            return (await _externalApiClient.GetPlayersByTeamId(teamId))
+                .Response
+                .FirstOrDefault()
+                .Players
+                .Select(player => new Player
+                {
+                    Id = player.Id,
+                    TeamId = teamId,
+                    FirstName = player.Name,
+                    PlayerPosition = player.Position,
+                    ProfilePictureUrl = player.Photo
+                });
         }
     }
 }

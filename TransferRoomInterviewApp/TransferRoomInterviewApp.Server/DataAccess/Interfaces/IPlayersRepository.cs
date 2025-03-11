@@ -4,6 +4,6 @@ namespace TransferRoomInterviewApp.Server.DataAccess.Interfaces
 {
     public interface IPlayersRepository
     {
-        IEnumerable<Player> GetPlayersByTeamId(int teamId);
+        Task<IEnumerable<Player>> GetPlayersByTeamIdAsync(int teamId);
     }
 }

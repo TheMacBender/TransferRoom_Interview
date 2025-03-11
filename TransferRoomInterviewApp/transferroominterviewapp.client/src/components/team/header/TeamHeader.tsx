@@ -11,7 +11,7 @@ const TeamHeader = ({ team }: TeamHeaderProps) => {
         <div className="team-container">
             <Row>
                 <Col className="m-3">
-                    <Image src={getImageUrl(team.badgeUrl)} width={200} height={200} alt="Badge" />
+                    <Image src={getImageUrl(team.badgeUrl)} width={200} height={200} style={{objectFit: "scale-down"}} alt="Badge" />
                 </Col>
                 <Col className="align-content-center">
                     <h1>{team.name}</h1>

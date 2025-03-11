@@ -13,9 +13,9 @@ namespace TransferRoomInterviewApp.Server.BusinessLogic.Services
             _playersRepository = playersRepository;
         }
 
-        public IEnumerable<Player> GetPlayersByTeamId(int teamId)
+        public Task<IEnumerable<Player>> GetPlayersByTeamIdAsync(int teamId)
         {
-            return _playersRepository.GetPlayersByTeamId(teamId);
+            return _playersRepository.GetPlayersByTeamIdAsync(teamId);
         }
     }
 }

@@ -4,8 +4,8 @@ namespace TransferRoomInterviewApp.Server.DataAccess.Interfaces
 {
     public interface ITeamsRepository
     {
-        IEnumerable<Team> GetTeamsBySearchInput(string searchInput);
+        Task<IEnumerable<Team>> GetTeamsBySearchInputAsync(string searchInput);
 
-        Team? GetTeamByTeamId(int teamId);
+        Task<Team?> GetTeamByTeamIdAsync(int teamId);
     }
 }
