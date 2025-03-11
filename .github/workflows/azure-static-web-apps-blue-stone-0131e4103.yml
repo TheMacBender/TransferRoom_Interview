@@ -36,6 +36,8 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.402
+      - name: create directory
+        run: mkdir -p /github/home/.aspnet/https
       - name: dotnet dev-cert
         run: dotnet dev-certs https --export-path /github/home/.aspnet/https/transferroominterviewapp.client.pem --format Pem --no-password
       - name: Build And Deploy
