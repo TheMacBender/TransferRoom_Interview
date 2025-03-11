@@ -1,17 +1,23 @@
 import { Team } from "../types/Team";
 
 const useTeams = () => {
-    const apiUrl = "api/teams"
+    const apiUrl = `${window.origin}/api/teams`
 
     const getTeams = async (searchInput?: string): Promise<Team[]> => {
         const request = `${apiUrl}?searchInput=${searchInput}`;
         const response = await fetch(request);
-        const json = await response.json();
-        return json;
+        return await response.json();
+    }
+
+    const getTeamById = async (id: number): Promise<Team> => {
+        const request = `${apiUrl}/${id}`;
+        const response = await fetch(request);
+        return await response.json();
     }
 
     return {
-        getTeams
+        getTeams,
+        getTeamById,
     }
 };
 

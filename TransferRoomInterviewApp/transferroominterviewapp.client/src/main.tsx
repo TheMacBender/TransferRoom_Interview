@@ -9,18 +9,23 @@ import Home from './components/home/Home.tsx';
 import Search from './components/search/Search.tsx';
 import Team from './components/team/Team.tsx';
 import NoPageFound from './NoPageFound.tsx';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
-        <Routes>
-          <Route element={<App />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="/team/:id" element={<Team />} />
-            <Route path="*" element={<NoPageFound />} />
-          </Route>
-        </Routes>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+          <Routes>
+            <Route element={<App />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/search" element={<Search />} />
+              <Route path="/team/:id" element={<Team />} />
+              <Route path="*" element={<NoPageFound />} />
+            </Route>
+          </Routes>
+      </BrowserRouter>
+    </QueryClientProvider>
   </StrictMode>,
 )
