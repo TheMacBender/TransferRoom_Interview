@@ -24,6 +24,12 @@ if (!certificateName) {
 const certFilePath = path.join(baseFolder, `${certificateName}.pem`);
 const keyFilePath = path.join(baseFolder, `${certificateName}.key`);
 
+console.log('APPDATA:', process.env.APPDATA);
+console.log('HOME:', process.env.HOME);
+console.log(baseFolder);
+console.log(certFilePath);
+console.log(keyFilePath);
+
 if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
     if (0 !== child_process.spawnSync('dotnet', [
         'dev-certs',
