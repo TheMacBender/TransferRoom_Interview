@@ -39,7 +39,7 @@ jobs:
       - name: create directory
         run: sudo mkdir -p /github/home/.aspnet/https
       - name: dotnet dev-cert
-        run: dotnet dev-certs https --export-path /github/home/.aspnet/https/transferroominterviewapp.client.pem --format Pem --no-password
+        run: sudo dotnet dev-certs https --export-path /github/home/.aspnet/https/transferroominterviewapp.client.pem --format Pem --no-password
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
