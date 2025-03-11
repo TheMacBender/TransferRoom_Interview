@@ -1,9 +1,9 @@
 {
   "routes": [
     {
-      "route": "/*",
+      "route": "/search",
       "rewrite": "/index.html",
-      "statusCode": 304
+      "redirect": "/"
     }
   ]
 }
