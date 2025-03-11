@@ -24,6 +24,11 @@ if (!certificateName) {
 const certFilePath = path.join(baseFolder, `${certificateName}.pem`);
 const keyFilePath = path.join(baseFolder, `${certificateName}.key`);
 
+console.log(certFilePath);
+console.log(keyFilePath);
+console.log("Cert file exists", fs.existsSync(certFilePath));
+console.log("Key file exists", fs.existsSync(keyFilePath));
+
 // Setup those for local environment
 
 // if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
