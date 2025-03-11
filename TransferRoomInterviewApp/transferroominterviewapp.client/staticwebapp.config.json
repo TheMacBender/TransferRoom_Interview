@@ -1,4 +1,11 @@
 {
+    "routes": [
+      {
+        "route": "/api/*",
+        "allowedMethods": ["GET", "POST"],
+        "rewrite": "/api"
+      }
+    ],
     "navigationFallback": {
       "rewrite": "index.html",
       "exclude": [
