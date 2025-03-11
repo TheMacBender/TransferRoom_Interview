@@ -4,7 +4,9 @@
       "route": "/*",
       "methods": [
         "get"
-      ]
+      ],
+      "rewrite": "/test",
+      "statusCode": 200
     }
   ]
 }
