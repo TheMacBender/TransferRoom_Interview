@@ -5,7 +5,8 @@
       "methods": [
         "get"
       ],
-      "rewrite": "/"
+      "rewrite": "/",
+      "statusCode": 200
     }
   ]
 }
