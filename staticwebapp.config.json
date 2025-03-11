@@ -1,9 +1,1 @@
-{
-  "routes": [
-    {
-      "route": "/search",
-      "rewrite": "/index.html",
-      "redirect": "/"
-    }
-  ]
-}
+{}
