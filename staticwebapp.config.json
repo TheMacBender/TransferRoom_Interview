@@ -1,7 +1,10 @@
 {
   "routes": [
     {
-      "route": "/*"
+      "route": "/*",
+      "methods": [
+        "get"
+      ]
     }
   ]
 }
