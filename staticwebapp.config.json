@@ -1,0 +1,11 @@
+{
+  "routes": [
+    {
+      "route": "/search",
+      "methods": [
+        "get"
+      ],
+      "redirect": "/index.html"
+    }
+  ]
+}
