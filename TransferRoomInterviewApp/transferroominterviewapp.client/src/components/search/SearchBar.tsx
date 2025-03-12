@@ -25,7 +25,7 @@ const SearchBar = ({ isLoading, isFetched, onSubmit }: SearchBarProps) => {
             <Stack direction="horizontal" gap={3}>
                 <Form.Control
                     className="me-auto"
-                    placeholder="Search for a team..."
+                    placeholder="Search for a team, e.g. Liverpool, Arsenal"
                     value={searchName}
                     onChange={e => onInputChange(e.target.value)}
                     onKeyDown={e => e.key === "Enter" ? onSubmit(searchName) : null}
