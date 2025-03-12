@@ -1,4 +1,4 @@
-import { ListGroup } from "react-bootstrap";
+import { Container, ListGroup } from "react-bootstrap";
 import { Player } from "../../../types/Player";
 import SinglePlayerRow from "./SinglePlayerRow";
 import usePlayers from "../../../hooks/usePlayers";
@@ -28,9 +28,9 @@ const PlayersList = ({ teamId }: PlayersListProps) => {
                         className="d-flex justify-content-between align-items-start"
                         key={index}
                         >
-                            <div className="ms-2 me-auto">
+                            <Container className="ms-2 me-auto">
                                 <SinglePlayerRow playerData={p} />
-                            </div>
+                            </Container>
                         </ListGroup.Item>
                     ))
                 }

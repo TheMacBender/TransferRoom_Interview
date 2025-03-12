@@ -28,6 +28,7 @@ const SearchBar = ({ isLoading, isFetched, onSubmit }: SearchBarProps) => {
                     placeholder="Search for a team..."
                     value={searchName}
                     onChange={e => onInputChange(e.target.value)}
+                    onKeyDown={e => e.key === "Enter" ? onSubmit(searchName) : null}
                     disabled={isLoading}
                 />
                 <Button

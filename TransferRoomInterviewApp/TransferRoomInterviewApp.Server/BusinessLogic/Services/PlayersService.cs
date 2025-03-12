@@ -25,6 +25,7 @@ namespace TransferRoomInterviewApp.Server.BusinessLogic.Services
                     TeamId = teamId,
                     FirstName = player.Name,
                     PlayerPosition = player.Position,
+                    Age = player.Age,
                     ProfilePictureUrl = player.Photo
                 });
         }

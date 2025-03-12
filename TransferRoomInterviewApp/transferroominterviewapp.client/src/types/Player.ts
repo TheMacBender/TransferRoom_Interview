@@ -3,7 +3,7 @@ export type Player = {
     teamId: number;
     firstName: string;
     lastName: string;
-    birthDate: string;
+    age: number;
     playerPosition: string;
     profilePictureUrl: string;
 }

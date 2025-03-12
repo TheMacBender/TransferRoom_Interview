@@ -24,7 +24,7 @@ const Search = () => {
         <Container className="p-2">
             <SearchBar isFetched={isFetched} isLoading={isLoading} onSubmit={onSubmit}/>
             { isError && <EmptyResultsList errorMessage={"Error while fetching data from API"} /> }
-            { data ? <ResultsList searchResult={data} /> : ((!isError && !isLoading && isFetched) && <EmptyResultsList />) }
+            { data && data.length > 0 ? <ResultsList searchResult={data} /> : ((!isError && !isLoading && isFetched) && <EmptyResultsList />) }
         </Container>
     )
 };
