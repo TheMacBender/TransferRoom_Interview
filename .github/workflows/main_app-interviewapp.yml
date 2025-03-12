@@ -33,7 +33,7 @@ jobs:
         run: dotnet build --configuration Release "./TransferRoomInterviewApp/TransferRoomInterviewApp.Server"
           
       - name: Run dotnet unit tests
-        working-directory: TransferRoomInterviewApp/TransferRoomInterviewApp.Server
+        working-directory: TransferRoomInterviewApp
         run: dotnet test
         
       - name: Run lint
