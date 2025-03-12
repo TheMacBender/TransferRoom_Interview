@@ -4,7 +4,7 @@ import SingleSearchResult from "./SingleSearchResult";
 import { ListGroup } from "react-bootstrap";
 
 interface ResultsListProps {
-    searchResult: Team[];
+    searchResult: Team[] | undefined;
 }
 
 const ResultsList = ({ searchResult }: ResultsListProps) => {
@@ -17,7 +17,7 @@ const ResultsList = ({ searchResult }: ResultsListProps) => {
     return (
         <ListGroup className="p-2" as="ul">
             {
-                searchResult.map((value: Team, index: number) => (
+                searchResult?.map((value: Team, index: number) => (
                     <ListGroup.Item
                         as="li"
                         className="d-flex justify-content-between align-items-start"
@@ -26,7 +26,7 @@ const ResultsList = ({ searchResult }: ResultsListProps) => {
                         onClick={() => onResultClick(value.id)}
                     >
                         <div className="ms-2 me-auto">
-                            <SingleSearchResult data={value}/>
+                            <SingleSearchResult teamName={value.name}/>
                         </div>
                     </ListGroup.Item>
                 ))

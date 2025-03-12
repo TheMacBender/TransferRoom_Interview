@@ -2,28 +2,29 @@ import { useState } from "react";
 import useTeams from "../../hooks/useTeams";
 import ResultsList from "./results-list/ResultsList";
 import SearchBar from "./SearchBar";
-import { Team } from "../../types/Team";
 import { Container } from "react-bootstrap";
+import { useQuery } from "@tanstack/react-query";
+import EmptyResultsList from "./results-list/EmptyResultsList";
 
 const Search = () => {
     const { getTeams } = useTeams();
-    const [ searchResult, setSearchResult ] = useState<Team[]>([]);
+    const [ searchInput, setSearchInput ] = useState<string>("");
 
-    const onSubmit = async (searchValue: string) => {
-        if (searchValue.length === 0) {
-            setSearchResult([]);
-            return;
-        }
+    const { isLoading, data, isError, isFetched } = useQuery({
+        queryKey: ['team', searchInput],
+        queryFn: () => getTeams(searchInput),
+        enabled: !!searchInput,
+    });
 
-        const result = await getTeams(searchValue);
-
-        setSearchResult(result);
+    const onSubmit = (searchValue: string) => {
+        setSearchInput(searchValue);
     }
 
     return (
         <Container className="p-2">
-            <SearchBar onSubmit={onSubmit}/>
-            <ResultsList searchResult={searchResult} />
+            <SearchBar isFetched={isFetched} isLoading={isLoading} onSubmit={onSubmit}/>
+            { isError && <EmptyResultsList errorMessage={"Error while fetching data from API"} /> }
+            { data ? <ResultsList searchResult={data} /> : ((!isError && !isLoading && isFetched) && <EmptyResultsList />) }
         </Container>
     )
 };

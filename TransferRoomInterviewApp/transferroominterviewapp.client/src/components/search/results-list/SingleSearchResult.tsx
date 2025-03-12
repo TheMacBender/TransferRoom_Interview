@@ -1,14 +1,13 @@
-import { Team } from "../../../types/Team";
 import { Stack } from "react-bootstrap";
 
 interface SingleSearchResultProps {
-    data: Team;
+    teamName: string;
 }
 
-const SingleSearchResult = ({ data }: SingleSearchResultProps) => {
+const SingleSearchResult = ({ teamName }: SingleSearchResultProps) => {
     return (
         <Stack direction="horizontal" gap={2}>
-            <div>{data.name}</div>
+            <div>{teamName}</div>
         </Stack>
     );
 };
