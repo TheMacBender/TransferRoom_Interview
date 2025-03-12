@@ -12,14 +12,14 @@ interface SinglePlayerProps {
 const SinglePlayerRow = ({ playerData }: SinglePlayerProps) => {
     return (
         <Row>
-            <Col xs={1} className="align-content-center">
+            <Col xs={3} md={1} className="align-content-center">
                 <LazyLoadImage src={getImageUrl(playerData.profilePictureUrl)} width={75} height={75} className="interview-app-img" alt="Player" />
             </Col>
-            <Col xs={9} className="align-content-center">
+            <Col xs={5} md={9} className="align-content-center">
                 <h3>{sanitizeName(playerData.firstName)} {sanitizeName(playerData.lastName)}</h3>
                 <div>Age: {playerData.age}</div>
             </Col>
-            <Col xs={3} md={2} className="align-content-center">
+            <Col xs={4} md={2} className="align-content-center">
                 <PlayerPositionBadge position={playerData.playerPosition} />
             </Col>
         </Row>
