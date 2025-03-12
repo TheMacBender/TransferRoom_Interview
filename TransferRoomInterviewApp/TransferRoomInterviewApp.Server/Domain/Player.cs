@@ -6,14 +6,14 @@
 
         public int TeamId { get; set; }
 
-        public string FirstName { get; set; }
+        public string FirstName { get; set; } = "";
 
-        public string LastName { get; set; }
+        public string LastName { get; set; } = "";
 
         public int Age { get; set; }
 
-        public string PlayerPosition { get; set; }
+        public string PlayerPosition { get; set; } = "";
 
-        public string ProfilePictureUrl { get; set; }
+        public string ProfilePictureUrl { get; set; } = "";
     }
 }

@@ -15,9 +15,16 @@ namespace TransferRoomInterviewApp.Server.BusinessLogic.Services
 
         public async Task<IEnumerable<Player>> GetPlayersByTeamIdAsync(int teamId)
         {
-            return (await _playersRepository.GetPlayersByTeamId(teamId))
+            var dataByTeamId = (await _playersRepository.GetPlayersByTeamId(teamId))
                 .Response
-                .FirstOrDefault()
+                .FirstOrDefault();
+
+            if (dataByTeamId == null)
+            {
+                return Enumerable.Empty<Player>();
+            }
+
+            return dataByTeamId
                 .Players
                 .Select(player => new Player
                 {

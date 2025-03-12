@@ -15,7 +15,7 @@ namespace TransferRoomInterviewApp.Server.DataAccess
         {
             var apiClient = _httpClientFactory.CreateClient("Api-Football");
             var response = await apiClient.GetFromJsonAsync<ExternalApiResponse<T>>($"{url}");
-            return response;
+            return response ?? new ExternalApiResponse<T>();
         }
     }
 }

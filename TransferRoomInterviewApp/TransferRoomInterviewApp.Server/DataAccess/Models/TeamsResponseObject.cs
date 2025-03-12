@@ -2,6 +2,6 @@
 {
     public class TeamsResponseObject
     {
-        public TeamObject Team { get; set; }
+        public TeamObject? Team { get; set; }
     }
 }
