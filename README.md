@@ -1,4 +1,4 @@
-# Interview App - Premier League Sqauds Finder
+# Interview App - Premier League Squads Finder
 A web application that allows users to search for any Premier League club and view its current squad, built with React and .NET Core.
 
 Uses [API-Football](https://www.api-football.com/) as an external API for data fetching.
