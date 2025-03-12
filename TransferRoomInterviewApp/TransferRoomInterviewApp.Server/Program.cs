@@ -9,7 +9,6 @@ namespace TransferRoomInterviewApp.Server
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
             builder.Services.ConfigureDependencies();
 
             var externalApiHost = builder.Configuration.GetValue<string>($"{nameof(ExternalApiConfiguration)}:{nameof(ExternalApiConfiguration.Host)}") ?? "";
@@ -17,14 +16,13 @@ namespace TransferRoomInterviewApp.Server
 
             builder.Services.AddHttpClient("Api-Football", httpClient =>
             {
-                // Read from appsettings?
                 httpClient.BaseAddress = new Uri(externalApiHost);
                 httpClient.DefaultRequestHeaders.Add(
                     "x-apisports-key", externalApiKey);
             });
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -33,12 +31,11 @@ namespace TransferRoomInterviewApp.Server
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
-            // Configure the HTTP request pipeline.
-            //if (app.Environment.IsDevelopment())
-            //{
-            app.UseSwagger();
-            app.UseSwaggerUI();
-            //}
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
 
             app.UseHttpsRedirection();
 
