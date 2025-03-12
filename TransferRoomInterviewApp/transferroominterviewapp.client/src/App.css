@@ -1,3 +1,10 @@
 body {
     background-color: blanchedalmond;
 }
+
+.interview-app-container {
+    margin-top: .5rem;
+    background: white;
+    border: 1px, solid, #dee2e6;
+    border-radius: 0.375rem;
+}

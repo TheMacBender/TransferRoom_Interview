@@ -2,7 +2,6 @@ import { Container } from "react-bootstrap";
 import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 
-import "./Team.css";
 import TeamHeader from "./header/TeamHeader";
 import PlayersList from "./players-list/PlayersList";
 import useTeams from "../../hooks/useTeams";
