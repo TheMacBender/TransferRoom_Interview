@@ -24,8 +24,8 @@ namespace TransferRoomInterviewApp.Server.BusinessLogic.Services
                 .Response
                 .Select(data => new Team
                 {
-                    Id = data.Team.Id,
-                    Name = data.Team.Name,
+                    Id = data.Team?.Id ?? 0,
+                    Name = data.Team?.Name ?? "",
                     BadgeUrl = "",
                 });
         }
@@ -36,9 +36,9 @@ namespace TransferRoomInterviewApp.Server.BusinessLogic.Services
                 .Response
                 .Select(data => new Team
                 {
-                    Id = data.Team.Id,
-                    Name = data.Team.Name,
-                    BadgeUrl = data.Team.Logo
+                    Id = data.Team?.Id ?? 0,
+                    Name = data.Team?.Name ?? "",
+                    BadgeUrl = data.Team?.Logo ?? ""
                 }).FirstOrDefault();
         }
     }
