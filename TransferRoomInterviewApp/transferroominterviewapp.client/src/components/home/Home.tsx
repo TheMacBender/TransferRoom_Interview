@@ -13,7 +13,7 @@ const Home = () => {
     return (
         <header className="home-header">
             <Container className="interview-app-container">
-                <h1 className="home-title">Premier League Squads</h1>
+                <h1 className="home-title">Premier League Squads Finder</h1>
                 <p className="home-subtitle">Search for your favorite team and take a look at its current squad!</p>
                 <div className="home-buttons-section">
                     <Button type="button" className="secondary" onClick={onButtonClick}>Search Now!</Button>
