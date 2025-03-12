@@ -38,6 +38,8 @@ jobs:
       - name: Run frontend unit tests
         working-directory: TransferRoomInterviewApp/transferroominterviewapp.client
         run: npm test
+        env:
+          AZURE_DEPLOYMENT: true
 
       - name: dotnet publish
         run: dotnet publish "./TransferRoomInterviewApp/TransferRoomInterviewApp.Server" -c Release -o "${{env.DOTNET_ROOT}}/myapp"
