@@ -12,7 +12,7 @@ const Team = () => {
     const teamId = parseInt(params.id ?? "0");
 
     if (isNaN(teamId)) {
-        navigate("/404");
+        void navigate("/404");
     }
 
     const { getTeamById } = useTeams();

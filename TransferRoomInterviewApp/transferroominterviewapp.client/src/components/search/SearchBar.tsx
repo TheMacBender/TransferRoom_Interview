@@ -14,6 +14,12 @@ const SearchBar = ({ isLoading, isFetched, onSubmit }: SearchBarProps) => {
         setSearchName(val);
     }
 
+    const onKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === "Enter") {
+            onSubmit(searchName);
+        }
+    }
+
     useEffect(() => {
         if (isFetched) {
             setSearchName("");
@@ -27,13 +33,13 @@ const SearchBar = ({ isLoading, isFetched, onSubmit }: SearchBarProps) => {
                     className="me-auto"
                     placeholder="Search for a team, e.g. Liverpool, Arsenal"
                     value={searchName}
-                    onChange={e => onInputChange(e.target.value)}
-                    onKeyDown={e => e.key === "Enter" ? onSubmit(searchName) : null}
+                    onChange={e => { onInputChange(e.target.value); }}
+                    onKeyDown={e => { onKeyDown(e) }}
                     disabled={isLoading}
                 />
                 <Button
                     variant="secondary"
-                    onClick={() => onSubmit(searchName)}
+                    onClick={() => { onSubmit(searchName); }}
                     disabled={isLoading || searchName.length === 0}
                 >
                     {isLoading ? "Loading..." : "Submit"}

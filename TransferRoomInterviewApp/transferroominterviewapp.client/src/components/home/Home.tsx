@@ -7,12 +7,12 @@ const Home = () => {
     const navigate = useNavigate();
 
     const onButtonClick = () => {
-        navigate("/search");
+        void navigate("/search");
     }
 
     return (
         <header className="home-header">
-            <Container className="interview-app-container">
+            <Container className="interview-app-container p-5">
                 <h1 className="home-title">Premier League Squads Finder</h1>
                 <p className="home-subtitle">Search for your favorite team and take a look at its current squad!</p>
                 <div className="home-buttons-section">

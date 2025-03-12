@@ -1,7 +1,8 @@
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { Col, Row } from "react-bootstrap";
 import { Player } from "../../../types/Player";
 import { getImageUrl } from "../../../utils/img.utils";
-import { Col, Row } from "react-bootstrap";
+import { sanitizeName } from "../../../utils/string.utils";
 import PlayerPositionBadge from "./PlayerPositionBadge";
 
 interface SinglePlayerProps {
@@ -15,7 +16,7 @@ const SinglePlayerRow = ({ playerData }: SinglePlayerProps) => {
                 <LazyLoadImage src={getImageUrl(playerData.profilePictureUrl)} width={75} height={75} className="interview-app-img" alt="Player" />
             </Col>
             <Col xs={9} className="align-content-center">
-                <h3>{playerData.firstName} {playerData.lastName}</h3>
+                <h3>{sanitizeName(playerData.firstName)} {sanitizeName(playerData.lastName)}</h3>
                 <div>Age: {playerData.age}</div>
             </Col>
             <Col xs={3} md={2} className="align-content-center">

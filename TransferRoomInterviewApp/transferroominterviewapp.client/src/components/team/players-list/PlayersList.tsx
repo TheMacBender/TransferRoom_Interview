@@ -22,7 +22,7 @@ const PlayersList = ({ teamId }: PlayersListProps) => {
             {data && (
                 <ListGroup className="p-2" as="ul">
                 {
-                    (data ?? []).map((p: Player, index: number) => (
+                    data.map((p: Player, index: number) => (
                         <ListGroup.Item
                         as="li"
                         className="d-flex justify-content-between align-items-start"

@@ -11,7 +11,7 @@ interface TeamHeaderProps {
 const TeamHeader = ({ team }: TeamHeaderProps) => {
     return (
         <div className="interview-app-container">
-            { team?.id ? (
+            { team.id ? (
                 <Row>
                     <Col xs={3}>
                         <Image src={getImageUrl(team.badgeUrl)} width={200} height={200} className="interview-app-img" alt="Badge" />

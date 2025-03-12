@@ -11,7 +11,7 @@ const ResultsList = ({ searchResult }: ResultsListProps) => {
     const navigate = useNavigate();
 
     const onResultClick = (id: number) => {
-        navigate(`/team/${id}`);
+        void navigate(`/team/${id.toString()}`);
     }
 
     return (
@@ -23,7 +23,7 @@ const ResultsList = ({ searchResult }: ResultsListProps) => {
                         className="d-flex justify-content-between align-items-start"
                         action
                         key={index}
-                        onClick={() => onResultClick(value.id)}
+                        onClick={() => { onResultClick(value.id) }}
                     >
                         <div className="ms-2 me-auto">
                             <SingleSearchResult teamName={value.name}/>
