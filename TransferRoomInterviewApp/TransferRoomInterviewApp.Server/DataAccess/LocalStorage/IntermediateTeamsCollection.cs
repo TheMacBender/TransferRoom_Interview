@@ -9,9 +9,9 @@
         public string NickName { get; set; } = "";
     }
 
-    public static class IntermediateTeamsCollection
+    public class IntermediateTeamsCollection
     {
-        private static IReadOnlyList<IntermediateTeamData> _intermediateTeamData = new List<IntermediateTeamData>()
+        private IReadOnlyList<IntermediateTeamData> _intermediateTeamData = new List<IntermediateTeamData>()
         {
              new IntermediateTeamData()
              {
@@ -116,7 +116,7 @@
              },
         };
 
-        public static IEnumerable<IntermediateTeamData> GetTeamsBySearchInput(string searchInput)
+        public IEnumerable<IntermediateTeamData> GetTeamsBySearchInput(string searchInput)
         {
             if (string.IsNullOrWhiteSpace(searchInput))
             {

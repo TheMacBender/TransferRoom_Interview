@@ -4,6 +4,13 @@ namespace TransferRoomInterviewApp.Tests
 {
     public class IntermediateTeamsCollectionTests
     {
+        private IntermediateTeamsCollection _collection;
+
+        public IntermediateTeamsCollectionTests()
+        {
+            _collection = new IntermediateTeamsCollection();
+        }
+
         [Theory]
         [InlineData("", 0)]
         [InlineData(" ", 0)]
@@ -13,7 +20,7 @@ namespace TransferRoomInterviewApp.Tests
         public void TeamsSearchByNameOrNickname_ShouldReturnTeams(string searchInput, int expectedTeamsCount)
         {
             // Act
-            var result = IntermediateTeamsCollection.GetTeamsBySearchInput(searchInput);
+            var result = _collection.GetTeamsBySearchInput(searchInput);
 
             // Assert
             Assert.NotNull(result);

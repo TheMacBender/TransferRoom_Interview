@@ -6,8 +6,11 @@ namespace TransferRoomInterviewApp.Server.DataAccess
 {
     public class TeamsRepository : HttpClientBaseRepository, ITeamsRepository
     {
-        public TeamsRepository(IHttpClientFactory httpClientFactory) : base(httpClientFactory)
+        private readonly IntermediateTeamsCollection _teamsCollection;
+
+        public TeamsRepository(IHttpClientFactory httpClientFactory, IntermediateTeamsCollection teamsCollection) : base(httpClientFactory)
         {
+            _teamsCollection = teamsCollection;
         }
 
         public async Task<ExternalApiResponse<TeamsResponseObject>> GetTeamByIdAsync(int teamId)
@@ -18,7 +21,7 @@ namespace TransferRoomInterviewApp.Server.DataAccess
 
         public Task<ExternalApiResponse<TeamsResponseObject>> GetTeamsBySearchInputAsync(string searchInput)
         {
-            var teamsBySearchInput = IntermediateTeamsCollection.GetTeamsBySearchInput(searchInput);
+            var teamsBySearchInput = _teamsCollection.GetTeamsBySearchInput(searchInput);
 
             if (!teamsBySearchInput.Any())
             {
