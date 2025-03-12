@@ -30,8 +30,16 @@ jobs:
         run: dotnet build --configuration Release "./TransferRoomInterviewApp/TransferRoomInterviewApp.Server"
         env:
           AZURE_DEPLOYMENT: true
+          
+      - name: Run dotnet unit tests
+        run: dotnet test
+        
+      - name: Run frontend unit tests
+        working-directory: TransferRoomInterviewApp/transferroominterviewapp.client
+        run: npm test
 
       - name: dotnet publish
+        working-directory: TransferRoomInterviewApp/TransferRoomInterviewApp.Server
         run: dotnet publish "./TransferRoomInterviewApp/TransferRoomInterviewApp.Server" -c Release -o "${{env.DOTNET_ROOT}}/myapp"
         env:
           AZURE_DEPLOYMENT: true

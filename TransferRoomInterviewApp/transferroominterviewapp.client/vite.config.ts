@@ -1,7 +1,8 @@
 import { fileURLToPath, URL } from 'node:url';
 import path from 'node:path';
 
-import { defineConfig, normalizePath } from 'vite';
+import { defineConfig } from 'vitest/config';
+import { normalizePath } from 'vite';
 import plugin from '@vitejs/plugin-react';
 import { viteStaticCopy } from "vite-plugin-static-copy";
 
@@ -72,5 +73,11 @@ export default defineConfig({
             key: fs.readFileSync(keyFilePath),
             cert: fs.readFileSync(certFilePath),
         } : undefined
-    }
+    },
+    test: {
+        globals: true,
+        environment: 'jsdom',
+        setupFiles: './setupTests.ts',
+        include: ['**/*.test.tsx', '**/*.test.ts'],
+    }    
 })
